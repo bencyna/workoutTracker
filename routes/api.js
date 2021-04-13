@@ -27,7 +27,7 @@ router.post("/api/workouts", ({ body }, res) => {
     })
     .catch((err) => {
       console.log(err);
-      // res.status(400).json(err);
+      res.status(400).json(err);
     });
 });
 
@@ -36,13 +36,12 @@ router.get("/api/workouts/range", (req, res) => {
   console.log(hey);
   Workout.find({})
     .sort([["day", 1]])
-    // figure this out !!!!!!!!!!!!!!!!!!!!!!!!!!!!
     .then((dbWorkout) => {
       res.json(dbWorkout);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
     });
-  // .catch((err) => {
-  //   res.status(400).json(err);
-  // });
 });
 
 router.put("/api/workouts/:id", (req, res) => {
@@ -57,32 +56,6 @@ router.put("/api/workouts/:id", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-  // console.log(req.body);
-  // Workout.updateOne(
-  //   {
-  //     _id: mongojs.ObjectId(req.params.id),
-  //   },,
-  //   {
-  //     $set: {
-  //       type: req.body.type,
-  //       name: req.body.name,
-  //       weight: req.body.weight,
-  //       sets: req.body.sets,
-  //       reps: req.body.reps,
-  //       duration: req.body.duration,
-  //       distance: req.body.distance,
-  //     },
-  //   },
-  //   (error, edited) => {
-  //     if (error) {
-  //       console.log(error);
-  //       res.send(error);
-  //     } else {
-  //       console.log(edited);
-  //       res.send(edited);
-  //     }
-  //   }
-  // );
 });
 
 module.exports = router;
