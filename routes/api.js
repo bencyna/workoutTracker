@@ -32,8 +32,6 @@ router.post("/api/workouts", ({ body }, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-  const hey = Workout.find({});
-  console.log(hey);
   Workout.find({})
     .sort([["day", 1]])
     .then((dbWorkout) => {
