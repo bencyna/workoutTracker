@@ -16,12 +16,13 @@ router.get("/stats", (req, res) => {
 });
 
 router.get("/api/workouts", (req, res) => {
-  Workout.find({}).then((dbWorkout) => {
-    res.json(dbWorkout);
-    // .catch((err) => {
-    //   res.json(err);
-    // });
-  });
+  Workout.find({})
+    .then((dbWorkout) => {
+      res.json(dbWorkout);
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
 });
 
 router.post("/api/workouts", ({ body }, res) => {
@@ -49,7 +50,6 @@ router.get("/api/workouts/range", (req, res) => {
 router.put("/api/workouts/:id", (req, res) => {
   Workout.findById(req.params.id)
     .then((workout) => {
-      console.log(workout);
       workout.exercises.push(req.body);
       Workout.updateOne({ _id: req.params.id }, workout, (err, result) => {
         res.json(workout);
